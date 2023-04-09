@@ -1,7 +1,8 @@
 #This program aim to build cars based on user input
 #It will also act as a customization agent, which will 
 #Get input from users for their desired upgrades/build
-
+#import copy
+import copy
 #---Input Check---
 def stringCheck(input):
     if input.isdigit() is False and input!="":
@@ -67,6 +68,7 @@ def getuserCar():
                 case "3":
                     drivetrain = "AWD"
                 case _:
+                    
                     break
             #Get Mileage
             mileage = str(input("Enter Desired Mileage (e.g., 1000): ").strip())
@@ -74,7 +76,7 @@ def getuserCar():
                 break
             valid = True
             print()
-            carobject = Car(make,model,trim,year,colour,drivetrain,mileage,year<2000)
+            carobject = Car(make,model,trim,year,colour,drivetrain,mileage,int(year)<2000)
             return carobject
 
 #GET USER PACKAGE CHOICES
@@ -92,6 +94,7 @@ def getuserCustomizations():
                 case "N":
                     premiumAudio = None
                 case _:
+                    print(f"Invalid Input")
                     break
             premiumMedia = str(input("Upgraded Infotainment Screen? (y/n): ").strip().upper())
             match premiumMedia:
@@ -100,6 +103,7 @@ def getuserCustomizations():
                 case "N":
                     premiumMedia = None
                 case _:
+                    print(f"Invalid Input")
                     break
             premiumLights = str(input("Halogen Headlights? (y/n): ").strip().upper())
             match premiumLights:
@@ -108,6 +112,7 @@ def getuserCustomizations():
                 case "N":
                    premiumLights = None
                 case _:
+                    print(f"Invalid Input")
                     break
             premiumSeats = str(input("Premium Leather Seats? (y/n): ").strip().upper())
             match premiumSeats:
@@ -116,6 +121,7 @@ def getuserCustomizations():
                 case "N":
                     premiumSeats = None
                 case _:
+                    print(f"Invalid Input")
                     break
             remoteStart = str(input("Remote Start? (y/n): ").strip().upper())
             match remoteStart:
@@ -124,23 +130,24 @@ def getuserCustomizations():
                 case "N":
                     remoteStart = None
                 case _:
+                    print(f"Invalid Input")
                     break
-                
+            valid = True
     return [premiumAudio,premiumMedia,premiumLights,premiumSeats,remoteStart]
 
-#get users cars
-carLot = []
-carLot.append(getuserCar(),getuserCustomizations())
+
 
 #Ask until user stops
 def userContinue():
+    j= False
     while j == False:
         while j == False:
-            userSatisfied = str(input("Add another car? (y/n)").strip().upper())
+            userSatisfied = str(input("\nAdd another car? (y/n): ").strip().upper())
+            print()
             match userSatisfied:
                 case "Y":
                     j =  True
-                    userSatisfied = True
+                    userSatisfied = False
                 case "N":
                     j = True
                     userSatisfied = True
@@ -148,11 +155,24 @@ def userContinue():
                     print("Invalid Input")
                     break
     return userSatisfied
+
+#GET FIRST CAR
+carLot = []
+carLot.append([getuserCar(),getuserCustomizations()])
+
+#Check For User Continue
+userSatisfied = userContinue()
 while userSatisfied == False:
-    carLot.append(getuserCar(),getuserCustomizations())
+    carLot.append([getuserCar(),getuserCustomizations()])
     userSatisfied = userContinue()
+    
+
+#---OUTPUT---
+
+#print to user
 
 
 #print to file (user choice)
-printOption = str(input("Would you like a printed file copy? (y/n: "))
+printOption = str(input("Would you like a printed file copy? (y/n): "))
 
+print((carLot[0][0]))
