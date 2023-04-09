@@ -23,7 +23,7 @@ print(f"Hello, this Program will help create your dream car lot")
 
 #Create Car Class with User Info 
 class Car:
-    def __init__(self,make,model,trim,year,colour,drivetrain,mileage,age):
+    def __init__(self,make,model,trim,year,colour,drivetrain,mileage,oldSchool):
         #instance attributes
         self.make = make
         self.model = model
@@ -34,7 +34,7 @@ class Car:
         self.mileage = mileage
 #New line
 print()
-# GET USER CAR
+# GET USER CAR FUNCTION
 
 def getuserCar():
     valid = False
@@ -44,7 +44,7 @@ def getuserCar():
             make = str(input("Enter Make: ").strip().capitalize())
             if stringCheck(make) is False:
                 break
-            model = str(input("Enter Model: ").strip().capitalize)
+            model = str(input("Enter Model: ").strip().capitalize())
             if stringCheck(model) is False:
                 break
             trim = str(input("Enter Trim (or Blank): ").strip().upper())
@@ -74,11 +74,85 @@ def getuserCar():
                 break
             valid = True
             print()
+            carobject = Car(make,model,trim,year,colour,drivetrain,mileage,year<2000)
+            return carobject
 
+#GET USER PACKAGE CHOICES
 
-getuserCar()
+def getuserCustomizations():
+    valid = False
+    #Get User Input
+    while valid is False:
+        while valid is False:
+            premiumAudio = str(input("Premium Audio Package? (y/n): ").strip().upper())
+            #check input
+            match premiumAudio:
+                case "Y":
+                    None
+                case "N":
+                    premiumAudio = None
+                case _:
+                    break
+            premiumMedia = str(input("Upgraded Infotainment Screen? (y/n): ").strip().upper())
+            match premiumMedia:
+                case "Y":
+                    None
+                case "N":
+                    premiumMedia = None
+                case _:
+                    break
+            premiumLights = str(input("Halogen Headlights? (y/n): ").strip().upper())
+            match premiumLights:
+                case "Y":
+                    None
+                case "N":
+                   premiumLights = None
+                case _:
+                    break
+            premiumSeats = str(input("Premium Leather Seats? (y/n): ").strip().upper())
+            match premiumSeats:
+                case "Y":
+                    None
+                case "N":
+                    premiumSeats = None
+                case _:
+                    break
+            remoteStart = str(input("Remote Start? (y/n): ").strip().upper())
+            match remoteStart:
+                case "Y":
+                    None
+                case "N":
+                    remoteStart = None
+                case _:
+                    break
+                
+    return [premiumAudio,premiumMedia,premiumLights,premiumSeats,remoteStart]
 
+#get users cars
+carLot = []
+carLot.append(getuserCar(),getuserCustomizations())
 
+#Ask until user stops
+def userContinue():
+    while j == False:
+        while j == False:
+            userSatisfied = str(input("Add another car? (y/n)").strip().upper())
+            match userSatisfied:
+                case "Y":
+                    j =  True
+                    userSatisfied = True
+                case "N":
+                    j = True
+                    userSatisfied = True
+                case _:
+                    print("Invalid Input")
+                    break
+    return userSatisfied
+while userSatisfied == False:
+    carLot.append(getuserCar(),getuserCustomizations())
+    userSatisfied = userContinue()
 
 
 #print to file (user choice)
+printOption = str(input("Would you like a printed file copy? (y/n: "))
+
