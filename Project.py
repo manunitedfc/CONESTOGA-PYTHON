@@ -34,24 +34,26 @@ class Car:
         self.drivetrain = drivetrain
         self.mileage = mileage
     def carPrint(self,fh=None):
+        #To File
         if fh is not None:
-            print(f"Car Make: {self.make}",file=fh)
-            print(f"Car Model: {self.model}",file=fh)
+            fh.write(f"Car Make: {self.make}\n")
+            fh.write(f"Car Model: {self.model}\n")
             if self.trim is not None:
-                print(f"Car Trim: {self.trim}",file=fh)
-            print(f"Car Year: {self.year}",file=fh)
-            print(f"Car Colour: {self.colour}",file=fh)
-            print(f"Car Drivetrain: {self.drivetrain}",file=fh)
-            print(f"Car Mileage: {self.mileage}",file=fh)
-        else:
-            print(f"Car Make: {self.make}")
-            print(f"Car Model: {self.model}")
-            if self.trim is not None:
-                print(f"Car Trim: {self.trim}")
-            print(f"Car Year: {self.year}")
-            print(f"Car Colour: {self.colour}")
-            print(f"Car Drivetrain: {self.drivetrain}")
-            print(f"Car Mileage: {self.mileage}")
+                fh.write(f"Car Trim: {self.trim}\n")
+            fh.write(f"Car Year: {self.year}\n")
+            fh.write(f"Car Colour: {self.colour}\n")
+            fh.write(f"Car Drivetrain: {self.drivetrain}\n")
+            fh.write(f"Car Mileage: {self.mileage}\n")
+        #To Console
+    
+        print(f"Car Make: {self.make}")
+        print(f"Car Model: {self.model}")
+        if self.trim is not None:
+            print(f"Car Trim: {self.trim}")
+        print(f"Car Year: {self.year}")
+        print(f"Car Colour: {self.colour}")
+        print(f"Car Drivetrain: {self.drivetrain}")
+        print(f"Car Mileage: {self.mileage}")
 
 
 #New line
@@ -88,6 +90,7 @@ def getuserCar(fh=None):
                 case "3":
                     drivetrain = "AWD"
                 case _:
+                    print("Invalid Input\n")
                     break
             #Get Mileage
             mileage = str(input("Enter Desired Mileage (e.g., 1000): ").strip())
@@ -157,29 +160,29 @@ def getuserCustomizations(fh=None):
 #Print Package Methods
 def printPackage(userCustomization,fh=None):
     if fh is not None:
-        print(f"Car Packages\n",file=fh)
+        fh.write(f"\nCar Packages:\n")
         if userCustomization[0] is not None:
-            print("Premium Audio Package",file=fh)
+            fh.write("\nPremium Audio Package")
         if userCustomization[1] is not None:
-            print("Upgraded Infotainment Screen",file=fh)
+            fh.write("\nUpgraded Infotainment Screen")
         if userCustomization[2] is not None:
-            print("Halogen Headlights",file=fh)
+            fh.write("\nHalogen Headlights")
         if userCustomization[3] is not None:
-            print("Premium Leather Seats",file=fh)
+            fh.write("\nPremium Leather Seats")
         if userCustomization[4] is not None:
-            print("Remote Start ",file=fh)
-    else:
-        print(f"Car Packages\n")
-        if userCustomization[0] is not None:
-            print("Premium Audio Package")
-        if userCustomization[1] is not None:
-            print("Upgraded Infotainment Screen")
-        if userCustomization[2] is not None:
-            print("Halogen Headlights")
-        if userCustomization[3] is not None:
-            print("Premium Leather Seats")
-        if userCustomization[4] is not None:
-            print("Remote Start ")
+            fh.write("\nRemote Start")
+    #To Console
+    print(f"\nCar Packages:\n")
+    if userCustomization[0] is not None:
+        print("Premium Audio Package")
+    if userCustomization[1] is not None:
+        print("Upgraded Infotainment Screen")
+    if userCustomization[2] is not None:
+        print("Halogen Headlights")
+    if userCustomization[3] is not None:
+        print("Premium Leather Seats")
+    if userCustomization[4] is not None:
+        print("Remote Start ")
 
 
 #Ask until user stops
@@ -219,15 +222,15 @@ def userfileChoice():
     j= False
     while j == False:
         while j == False:
-            printOption = str(input("\nPrint to File? (y/n): ").strip().upper())
+            printOption = str(input("Print to File? (y/n): ").strip().upper())
             print()
-            match userSatisfied:
+            match printOption:
                 case "Y":
                     j =  True
-                    printOption = False
+                    printOption = True
                 case "N":
                     j = True
-                    printOption = True
+                    printOption = False
                 case _:
                     print("Invalid Input")
                     break
@@ -242,17 +245,24 @@ if printOption == True:
     try:
         newFile = open("Cars.txt",'x')
         newFile.close()
-        fh = open("Cars.txt","a")
+        fh = open("Cars.txt","w")
         fh.write("Your CARS:\n")
     except:
-        fh = open("Cars.txt","a")
-        fh.write("YOUR CARS:\n")
+        fh = open("Cars.txt","w")
+        fh.write("\nYOUR CARS:\n")
 else:
     fh = None
 #print/write user car data
 i= 1
 for car in carLot:
     print(f"---CAR {i}---\n")
+    if i<2:
+        fh.write(f"---CAR {i}---\n")
+    else:
+        fh.write("\n")
+        fh.write(f"\n---CAR {i}---\n")
+        fh.write(f"\n")
     car[0].carPrint(fh)
     printPackage(car[1],fh)
-
+    i+=1
+    print()

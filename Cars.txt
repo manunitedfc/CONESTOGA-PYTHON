@@ -1,0 +1,34 @@
+
+YOUR CARS:
+---CAR 1---
+Car Make: Ford
+Car Model: F150
+Car Year: 2007
+Car Colour: Black
+Car Drivetrain: AWD
+Car Mileage: 0
+
+Car Packages:
+
+Premium Audio Package
+Upgraded Infotainment Screen
+Halogen Headlights
+Premium Leather Seats
+Remote Start
+
+---CAR 2---
+
+Car Make: Dodge
+Car Model: Bullet
+Car Trim: LOW TAPER
+Car Year: 2000
+Car Colour: Black
+Car Drivetrain: FWD
+Car Mileage: 50
+
+Car Packages:
+
+Premium Audio Package
+Upgraded Infotainment Screen
+Halogen Headlights
+Remote Start
